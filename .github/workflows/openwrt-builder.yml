@@ -20,6 +20,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt.git
   REPO_BRANCH: main
   FEEDS_CONF: feeds.conf.default
+  TOR_MANAGER: luci-app-tormanager.tar.xz
   CONFIG_FILE: .config
   BASE_FILE: base.po
   LUCI_MOD: luci-mod-network.json
@@ -68,8 +69,11 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
-
+      run: |
+        cd openwrt && ./scripts/feeds update -a
+        [ -e $BASE_FILE ] && mv $TOR_MANAGER openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz && tar -xvf openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz && rm openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz
+        cd openwrt && ./scripts/feeds update -a
+        
     - name: Install feeds
       run: |
         cd openwrt
