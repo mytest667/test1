@@ -72,9 +72,8 @@ jobs:
       run: |
         cd openwrt && ./scripts/feeds update -a
         [ -e $TOR_MANAGER ] && mv $TOR_MANAGER openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz 
-        cd openwrt && tar -xvf openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz -C openwrt/feeds/luci/applications/ 
-        cd openwrt && rm openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz
-        cd openwrt && ./scripts/feeds update -a
+        [ -e $TOR_MANAGER ] && tar -xvf openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz -C openwrt/feeds/luci/applications/ 
+        [ -e $TOR_MANAGER ] && rm openwrt/feeds/luci/applications/luci-app-tormanager.tar.xz
         
     - name: Install feeds
       run: |
