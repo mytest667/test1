@@ -71,7 +71,6 @@ jobs:
     - name: Update feeds
       run: |
         cd openwrt && ./scripts/feeds update -a
-        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/ 
         
     - name: Install feeds
       run: |
@@ -81,6 +80,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
+        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/         
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         [ -e $BASE_FILE ] && mv $BASE_FILE openwrt/feeds/luci/modules/luci-base/po/zh_Hans/base.po
         [ -e $LUCI_MOD ] && mv $LUCI_MOD openwrt/feeds/luci/modules/luci-mod-network/root/usr/share/rpcd/acl.d/luci-mod-network.json
