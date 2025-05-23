@@ -25,11 +25,11 @@ env:
   REPO_URL: https://github.com/hnyman/openwrt.git
   REPO_BRANCH: openwrt-23.05
   FEEDS_CONF: feeds.conf.default
-#  TOR_MANAGER: luci-app-tormanager.tar.xz
-#  CONFIG_FILE: .config
-#  BASE_FILE: base.po
-#  LUCI_MOD: luci-mod-network.json
-#  LUCI_JS: wireless.js
+  TOR_MANAGER: luci-app-tormanager.tar.xz
+  CONFIG_FILE: .config
+  BASE_FILE: base.po
+  LUCI_MOD: luci-mod-network.json
+  LUCI_JS: wireless.js
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -82,30 +82,30 @@ jobs:
         cd openwrt
         ./scripts/feeds install -a
 
-#    - name: Load Tor_manager
-#      run: |
-#        [ -e files ] && mv files openwrt/files
-#        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/         
-#        chmod +x $DIY_P2_SH
-#        cd openwrt
-#        $GITHUB_WORKSPACE/$DIY_P2_SH
+    - name: Load Tor_manager
+      run: |
+        [ -e files ] && mv files openwrt/files
+        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/         
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
         
-#    - name: reInstall feeds
-#      run: |
-#        cd openwrt
-#        ./scripts/feeds update -a
-#        ./scripts/feeds install -a
+    - name: reInstall feeds
+      run: |
+        cd openwrt
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
 
-#    - name: Load custom configuration
-#      run: |
-#        [ -e files ] && mv files openwrt/files
-#        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-#        [ -e $BASE_FILE ] && mv $BASE_FILE openwrt/feeds/luci/modules/luci-base/po/zh_Hans/base.po
-#        [ -e $LUCI_MOD ] && mv $LUCI_MOD openwrt/feeds/luci/modules/luci-mod-network/root/usr/share/rpcd/acl.d/luci-mod-network.json
-#        [ -e $LUCI_JS ] && mv $LUCI_JS openwrt/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/wireless.js
-#        chmod +x $DIY_P2_SH
-#        cd openwrt
-#        $GITHUB_WORKSPACE/$DIY_P2_SH
+    - name: Load custom configuration
+      run: |
+        [ -e files ] && mv files openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $BASE_FILE ] && mv $BASE_FILE openwrt/feeds/luci/modules/luci-base/po/zh_Hans/base.po
+        [ -e $LUCI_MOD ] && mv $LUCI_MOD openwrt/feeds/luci/modules/luci-mod-network/root/usr/share/rpcd/acl.d/luci-mod-network.json
+        [ -e $LUCI_JS ] && mv $LUCI_JS openwrt/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/wireless.js
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
         
         
     - name: SSH connection to Actions
