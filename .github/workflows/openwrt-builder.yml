@@ -82,13 +82,13 @@ jobs:
         cd openwrt
         ./scripts/feeds install -a
 
-    - name: Load Tor_manager
-      run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/         
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+#    - name: Load Tor_manager
+#      run: |
+#        [ -e files ] && mv files openwrt/files
+#        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/         
+#        chmod +x $DIY_P2_SH
+#        cd openwrt
+#        $GITHUB_WORKSPACE/$DIY_P2_SH
         
     - name: reInstall feeds
       run: |
