@@ -22,8 +22,8 @@ on:
         default: 'true'
 
 env:
-  REPO_URL: https://github.com/hnyman/openwrt.git
-  REPO_BRANCH: openwrt-23.05
+  REPO_URL: https://github.com/mytest667/OP.git
+  REPO_BRANCH: main
   FEEDS_CONF: feeds.conf.default
   TOR_MANAGER: luci-app-tormanager.tar.xz
   CONFIG_FILE: .config
