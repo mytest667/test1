@@ -31,3 +31,5 @@ rm -rf package/feeds/packages/xray-core
 # 删除自带 v2ray-core
 rm -rf feeds/packages/net/v2ray-core
 rm -rf package/feeds/packages/v2ray-core
+
+# rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
