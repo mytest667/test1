@@ -33,3 +33,4 @@ rm -rf feeds/packages/net/v2ray-core
 rm -rf package/feeds/packages/v2ray-core
 
 # rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
+# https://www.dropbox.com/scl/fo/16p7qk85j7gm92me98tlj/AHVhIZ10WM4MRwoATkn1E8I?rlkey=2rah1q0kib5hhf9lxngzo8qhm
