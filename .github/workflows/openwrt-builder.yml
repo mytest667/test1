@@ -26,6 +26,7 @@ env:
   REPO_BRANCH: openwrt-23.05
   FEEDS_CONF: feeds.conf.default
   TOR_MANAGER: luci-app-tormanager.tar.xz
+  OWRT:owrt2410.tar
   CONFIG_FILE: .config
   BASE_FILE: base.po
   LUCI_MOD: luci-mod-network.json
@@ -85,7 +86,8 @@ jobs:
     - name: Load Tor_manager
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/         
+        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/  
+        [ -e $OWRT ] && tar -xvf$OWRT -C  openwrt/
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
