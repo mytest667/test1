@@ -68,21 +68,21 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         rm -rf * 
-        cd ../
-        [ -e $OWRT ] && tar -xvf $OWRT -C openwrt
-        cd openwrt
-        sh R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
+ #       cd ../
+  #      [ -e $OWRT ] && tar -xvf $OWRT -C openwrt
+  #      cd openwrt
+  #      sh R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
         
-    - name: Load Tor_manager
-      run: |
-        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/owrt2410/feeds/luci/applications/  
+#    - name: Load Tor_manager
+ #     run: |
+ #       [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/owrt2410/feeds/luci/applications/  
         
-    - name: Load custom feeds
-      run: |
-        cd openwrt/owrt2410
-        sed -i '$ a\src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
-        ./scripts/feeds update -a -p 
-        ./scripts/feeds install -a -p smpackage -f
+#    - name: Load custom feeds
+  #    run: |
+  #      cd openwrt/owrt2410
+   #     sed -i '$ a\src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
+  #      ./scripts/feeds update -a -p 
+   #     ./scripts/feeds install -a -p smpackage -f
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
