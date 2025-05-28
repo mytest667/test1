@@ -22,17 +22,17 @@ on:
         default: 'true'
 
 env:
-  REPO_URL: https://github.com/mytest667/openwrt
-  REPO_BRANCH: openwrt-23.05
-  FEEDS_CONF: feeds.conf.default
+#  REPO_URL: https://github.com/mytest667/openwrt
+#  REPO_BRANCH: openwrt-23.05
+#  FEEDS_CONF: feeds.conf.default
   TOR_MANAGER: luci-app-tormanager.tar.xz
   OWRT: owrt2410.tar
-  CONFIG_FILE: .config
-  BASE_FILE: base.po
-  LUCI_MOD: luci-mod-network.json
-  LUCI_JS: wireless.js
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+#  CONFIG_FILE: .config
+#  BASE_FILE: base.po
+#  LUCI_MOD: luci-mod-network.json
+#  LUCI_JS: wireless.js
+#  DIY_P1_SH: diy-part1.sh
+#  DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -60,55 +60,26 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: Clone source code
+    - name: install code and scripts
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        tar -xvf $OWRT -C openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
-    - name: Load custom feeds
-      run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
-
-    - name: Update feeds
-      run: |
-        cd openwrt && ./scripts/feeds update -a
+        chmod +x ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
+        sh ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
         
-    - name: Install feeds
-      run: |
-        cd openwrt
-        ./scripts/feeds install -a
-
     - name: Load Tor_manager
       run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/feeds/luci/applications/  
-        [ -e $OWRT ] && tar -xvf$OWRT -C  openwrt/
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        [ -e $TOR_MANAGER ] && tar -xvf $TOR_MANAGER -C openwrt/owrt2410/feeds/luci/applications/  
         
-    - name: reInstall feeds
+    - name: Load custom feeds
       run: |
-        cd openwrt
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
-
-    - name: Load custom configuration
-      run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        [ -e $BASE_FILE ] && mv $BASE_FILE openwrt/feeds/luci/modules/luci-base/po/zh_Hans/base.po
-        [ -e $LUCI_MOD ] && mv $LUCI_MOD openwrt/feeds/luci/modules/luci-mod-network/root/usr/share/rpcd/acl.d/luci-mod-network.json
-        [ -e $LUCI_JS ] && mv $LUCI_JS openwrt/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/wireless.js
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
-        
+        cd openwrt/owrt2410
+        sed -i '$ a\src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
+        ./scripts/feeds update -a -p 
+        ./scripts/feeds install -a -p smpackage -f
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
