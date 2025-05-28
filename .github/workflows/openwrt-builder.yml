@@ -68,10 +68,8 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         rm -rf * 
-        cd ../
         tar -xvf owrt2410.tar -C openwrt
-        cd openwrt
-        sh R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
+        cd openwrt | sh R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
         
     - name: Load Tor_manager
       run: |
