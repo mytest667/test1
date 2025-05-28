@@ -31,8 +31,8 @@ env:
 #  BASE_FILE: base.po
 #  LUCI_MOD: luci-mod-network.json
 #  LUCI_JS: wireless.js
-#  DIY_P1_SH: diy-part1.sh
-#  DIY_P2_SH: diy-part2.sh
+  DIY_P3_SH: diy-part3.sh
+  DIY_P4_SH: diy-part4.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -68,9 +68,9 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         rm -rf * 
-        [ -e $OWRT ] && tar -xvf $OWRT -C openwrt/
+        chmod +x $DIY_P3_SH
         cd openwrt
-        sh R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
+        $GITHUB_WORKSPACE/$DIY_P3_SH
         
     - name: Load Tor_manager
       run: |
@@ -78,10 +78,9 @@ jobs:
         
     - name: Load custom feeds
       run: |
-        cd openwrt/owrt2410
-        sed -i '$ a\src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
-        ./scripts/feeds update -a -p 
-        ./scripts/feeds install -a -p smpackage -f
+        chmod +x $DIY_P4_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P4_SH
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
