@@ -66,9 +66,10 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        cd openwrt | rm -rf * 
+        cd openwrt
+        rm -rf * 
         cd ../
-        tar -xvf $OWRT -C openwrt
+        [ -e $OWRT ] && tar -xvf $OWRT -C openwrt
         cd openwrt
         chmod +x ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
         sh ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
