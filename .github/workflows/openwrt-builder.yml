@@ -71,8 +71,7 @@ jobs:
         cd ../
         [ -e $OWRT ] && tar -xvf $OWRT -C openwrt
         cd openwrt
-        chmod +x ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
-        sh ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
+        sh R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
         
     - name: Load Tor_manager
       run: |
