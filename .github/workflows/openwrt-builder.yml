@@ -22,8 +22,8 @@ on:
         default: 'true'
 
 env:
-#  REPO_URL: https://github.com/mytest667/openwrt
-#  REPO_BRANCH: openwrt-23.05
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-24.10
 #  FEEDS_CONF: feeds.conf.default
   TOR_MANAGER: luci-app-tormanager.tar.xz
   OWRT: owrt2410.tar
@@ -64,7 +64,10 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt | rm -rf * 
+        cd ../
         tar -xvf $OWRT -C openwrt
         cd openwrt
         chmod +x ./R7800-owrt2410-r28664-01da187749-20250523-1922-newBuildroot.sh
